@@ -2,6 +2,7 @@ FROM circleci/php:7.1-cli-node-browsers
 
 USER root
 
+RUN apt-get update
 RUN apt install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev libicu-dev gdal-bin
 RUN docker-php-ext-install -j$(nproc) gd pdo_pgsql zip bcmath bz2 gettext intl sockets
 

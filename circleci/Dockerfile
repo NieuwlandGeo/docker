@@ -2,8 +2,14 @@ FROM circleci/php:7.1-cli-node-browsers
 
 USER root
 
+#  https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=866729
+RUN mkdir -p /usr/share/man/man7
+
 RUN apt-get update
-RUN apt install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev libicu-dev gdal-bin
+RUN apt-get install -y apt-utils
+
+RUN apt-get install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev libicu-dev gdal-bin
+
 RUN docker-php-ext-install -j$(nproc) gd pdo_pgsql zip bcmath bz2 gettext intl sockets
 
 

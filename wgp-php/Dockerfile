@@ -1,14 +1,17 @@
 FROM php:7.1-fpm
 
+RUN apt-get update \
+    && apt-get install -y gnupg
+
 RUN curl -s https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+  && echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x  | bash - \
     && apt-get install -y nodejs
 
 RUN apt-get update \
-    && apt-get install -y postgresql-client-9.5 libjpeg62-turbo-dev libpng12-dev  \
-        libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget alien  libaio1 libaio-dev cron gdal-bin
+    && apt-get install -y postgresql-client-9.5 libjpeg62-turbo-dev libpng-dev  \
+        libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget cron gdal-bin
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpeg-dir=/usr/include \
   && docker-php-ext-install -j$(nproc) \

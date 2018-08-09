@@ -12,6 +12,17 @@ RUN apt-get install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev l
 
 RUN docker-php-ext-install -j$(nproc) gd pdo_pgsql zip bcmath bz2 gettext intl sockets
 
+RUN sudo apt-get install -y openssl build-essential libfontconfig1 libxrender1 libssl-dev \
+    && cd /tmp \
+    && sudo wget "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz" \
+    && sudo tar xvf /tmp/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+    && sudo mv /tmp/wkhtmltox/bin/* /usr/local/bin \
+    && sudo mv /tmp/wkhtmltox/include/* /usr/local/include \
+    && sudo mv /tmp/wkhtmltox/lib/* /usr/local/lib \
+    && sudo mkdir /usr/local/share/man/man1 \
+    && sudo mv /tmp/wkhtmltox/share/man/man1/* /usr/local/share/man/man1 \
+    && sudo rm -rf /usr/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+    && sudo rm -rf /usr/wkhtmltox
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
  && php -r "copy('https://composer.github.io/installer.sig', 'composer-setup.sig');" \

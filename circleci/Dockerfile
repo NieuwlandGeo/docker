@@ -19,7 +19,7 @@ RUN sudo apt-get install -y openssl build-essential libfontconfig1 libxrender1 l
     && sudo mv /tmp/wkhtmltox/bin/* /usr/local/bin \
     && sudo mv /tmp/wkhtmltox/include/* /usr/local/include \
     && sudo mv /tmp/wkhtmltox/lib/* /usr/local/lib \
-    && sudo mkdir /usr/local/share/man/man1 \
+    && sudo mkdir -p /usr/local/share/man/man1 \
     && sudo mv /tmp/wkhtmltox/share/man/man1/* /usr/local/share/man/man1 \
     && sudo rm -rf /usr/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
     && sudo rm -rf /usr/wkhtmltox

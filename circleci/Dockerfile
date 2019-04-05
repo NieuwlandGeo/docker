@@ -24,6 +24,9 @@ RUN sudo apt-get install -y openssl build-essential libfontconfig1 libxrender1 l
     && sudo rm -rf /usr/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
     && sudo rm -rf /usr/wkhtmltox
 
+RUN apt-get update \
+    && apt-get install -y ghostscript
+
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "copy('https://composer.github.io/installer.sig', 'composer-setup.sig');" \
     && php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('composer-setup.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \

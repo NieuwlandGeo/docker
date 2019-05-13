@@ -11,13 +11,12 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 
 RUN apt-get update \
   && apt-get install -y postgresql-client-9.6 libjpeg62-turbo-dev libpng-dev  \
-  libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget cron gdal-bin
+  libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget cron gdal-bin libgeos-dev
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpeg-dir=/usr/include \
   && docker-php-ext-install -j$(nproc) \
   gd \
   pdo_pgsql \
-  pdo_mysql \
   zip \
   bcmath \
   bz2 \
@@ -27,6 +26,18 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpeg-dir
   && pecl install apcu \
   && docker-php-ext-enable \
   apcu
+
+WORKDIR /opt
+
+RUN git clone https://git.osgeo.org/gitea/geos/php-geos.git
+
+WORKDIR /opt/php-geos
+RUN ./autogen.sh \ 
+  && phpize \
+  && ./configure \
+  && make -j "$(nproc)" \
+  && make install \ 
+  && docker-php-ext-enable geos
 
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

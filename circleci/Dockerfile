@@ -8,7 +8,7 @@ RUN mkdir -p /usr/share/man/man7
 RUN apt-get update
 RUN apt-get install -y apt-utils
 
-RUN apt-get install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev libicu-dev gdal-bin
+RUN apt-get install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev libicu-dev gdal-bin libgeos-dev
 
 RUN docker-php-ext-install -j$(nproc) gd pdo_pgsql zip bcmath bz2 gettext intl sockets
 

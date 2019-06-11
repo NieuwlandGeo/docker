@@ -27,6 +27,18 @@ RUN sudo apt-get install -y openssl build-essential libfontconfig1 libxrender1 l
 RUN apt-get update \
     && apt-get install -y ghostscript
 
+WORKDIR /opt
+
+RUN git clone https://git.osgeo.org/gitea/geos/php-geos.git
+
+WORKDIR /opt/php-geos
+RUN ./autogen.sh \ 
+    && phpize \
+    && ./configure \
+    && make -j "$(nproc)" \
+    && make install \ 
+    && docker-php-ext-enable geos    
+
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "copy('https://composer.github.io/installer.sig', 'composer-setup.sig');" \
     && php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('composer-setup.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \

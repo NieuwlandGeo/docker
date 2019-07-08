@@ -11,7 +11,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 
 RUN apt-get update \
   && apt-get install -y postgresql-client-9.6 libjpeg62-turbo-dev libpng-dev  \
-  libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget cron gdal-bin libgeos-dev
+  libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget cron gdal-bin libgeos-dev \
+  libmagickwand-dev
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpeg-dir=/usr/include \
   && docker-php-ext-install -j$(nproc) \
@@ -24,8 +25,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpeg-dir
   intl \
   sockets \
   && pecl install apcu \
-  && docker-php-ext-enable \
-  apcu
+  && docker-php-ext-enable apcu \
+  && pecl install imagick \
+  && docker-php-ext-enable imagick
 
 WORKDIR /opt
 

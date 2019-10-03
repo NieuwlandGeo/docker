@@ -8,7 +8,7 @@ RUN mkdir -p /usr/share/man/man7
 RUN apt-get update
 RUN apt-get install -y apt-utils
 
-RUN apt-get install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev libicu-dev gdal-bin libgeos-dev libmagickwand-dev
+RUN apt-get install -y libpq-dev libpng-dev unzip postgresql-client libbz2-dev libicu-dev gdal-bin libgeos-dev libmagickwand-dev openssl
 
 RUN docker-php-ext-install -j$(nproc) gd pdo_pgsql zip bcmath bz2 gettext intl sockets
 
@@ -51,5 +51,12 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer
 
 ADD php.ini /usr/local/etc/php/
+
+RUN mkdir /app \    
+    && mkdir /app/var \        
+    && mkdir /app/var/jwt 
+
+RUN openssl genrsa -out /app/var/jwt/private.pem -aes256 -passout pass:wgp5foo 4096
+RUN openssl rsa -passin pass:wgp5foo -pubout -in /app/var/jwt/private.pem -out /app/var/jwt/public.pem
 
 USER circleci

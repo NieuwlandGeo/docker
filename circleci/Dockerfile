@@ -60,5 +60,9 @@ RUN mkdir /app \
 
 USER circleci
 
+# old location
 RUN openssl genrsa -out /app/var/jwt/private_test.pem -aes256 -passout pass:wgp5foo 4096
 RUN openssl rsa -passin pass:wgp5foo -pubout -in /app/var/jwt/private_test.pem -out /app/var/jwt/public_test.pem
+# new location
+RUN openssl genrsa -out /var/jwt/private_test.pem -aes256 -passout pass:wgp5foo 4096
+RUN openssl rsa -passin pass:wgp5foo -pubout -in /var/jwt/private_test.pem -out /var/jwt/public_test.pem

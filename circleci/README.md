@@ -7,15 +7,15 @@ Our image for testing wgp5
 ## Manual
 
 ```
-docker build -t nieuwlandgeo/circleci:0.0.7 .
+docker build -t nieuwlandgeo/docker:7.3-cli-node-browsers .
 docker login
-docker push nieuwlandgeo/circleci:0.0.7
+docker push nieuwlandgeo/docker:7.3-cli-node-browsers
 ```
 
 Run container:
 
 ```
-docker run -it nieuwlandgeo/circleci:0.0.7 bash
+docker run -it nieuwlandgeo/docker:7.3-cli-node-browsers bash
 ```
 
 ## Automated

@@ -55,7 +55,9 @@ ADD php.ini /usr/local/etc/php/
 RUN mkdir /app \    
     && mkdir /app/var \        
     && mkdir /app/var/jwt \
-    && chown -R circleci /app
+    && mkdir /var/jwt \
+    && chown -R circleci /app \
+    && chown -R circleci /var/jwt
 
 
 USER circleci

@@ -7,7 +7,7 @@ Our image for testing wgp5
 ## Manual
 
 ```
-docker build -t nieuwlandgeo/docker:7.3-cli-node-browsers .
+docker build --no-cache -t nieuwlandgeo/docker:7.3-cli-node-browsers .
 docker login
 docker push nieuwlandgeo/docker:7.3-cli-node-browsers
 ```

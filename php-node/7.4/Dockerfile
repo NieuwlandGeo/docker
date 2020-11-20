@@ -34,6 +34,6 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "copy('https://composer.github.io/installer.sig', 'composer-setup.sig');" \
   && php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('composer-setup.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-  && php composer-setup.php --install-dir=/usr/local/bin --version=1.10.17 --filename=composer \
+  && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
   && php -r "unlink('composer-setup.php');" 
 

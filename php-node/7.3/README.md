@@ -4,10 +4,10 @@ Feel free to use for other symfony projects.
 
 
 ```
-docker build -t nieuwlandgeo/wgp-base .
+docker build -t nieuwlandgeo/wgp-base:7.3 .
 # test
-docker run -it nieuwlandgeo/wgp-base bash
+docker run -it nieuwlandgeo/wgp-base:7.3 bash
 # publish
 docker login
-docker push nieuwlandgeo/wgp-base
+docker push nieuwlandgeo/wgp-base:7.3
 ```

@@ -11,8 +11,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
 
 RUN apt-get update \
   && apt-get install -y postgresql-client-9.6 libjpeg62-turbo-dev libpng-dev libzip-dev \
-  libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget gdal-bin \
-  libmagickwand-dev
+  libbz2-dev libfreetype6-dev libpq-dev libicu-dev unzip git wget libmagickwand-dev
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install -j$(nproc) \
@@ -37,3 +36,24 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
   && php -r "unlink('composer-setup.php');" 
 
+RUN apt-get install -y g++ sqlite3 libsqlite3-dev libtiff5-dev pkg-config
+
+RUN cd /tmp
+
+RUN curl https://download.osgeo.org/proj/proj-8.1.1.tar.gz | tar xvz
+
+RUN cd proj-8.1.1 \
+    && ./configure --without-curl \
+    && make && make install \
+    && cd ..
+
+#RUN curl https://download.osgeo.org/gdal/3.0.4/gdal304.zip > /tmp/gdal304.zip
+RUN curl https://download.osgeo.org/gdal/3.5.2/gdal-3.5.2.tar.gz | tar xvz
+#RUN unzip /tmp/gdal304.zip
+
+RUN cd gdal-3.5.2 \
+    && ./configure \
+    && make clean && make && make install \
+    && cd ..
+
+ENV LD_LIBRARY_PATH /usr/local/lib

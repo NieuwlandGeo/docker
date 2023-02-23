@@ -28,7 +28,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-enable apcu \
   && pecl install imagick \
   && docker-php-ext-enable imagick \
-  && pecl install redis-4.0.2 \
+  && pecl install redis-5.3.7 \
   && docker-php-ext-enable redis
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

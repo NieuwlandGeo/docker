@@ -31,7 +31,9 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
   intl \
   sockets \
   && pecl install apcu \
-  && docker-php-ext-enable apcu
+  && docker-php-ext-enable apcu \
+  && pecl install imagick \
+  && docker-php-ext-enable imagick
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "copy('https://composer.github.io/installer.sig', 'composer-setup.sig');" \

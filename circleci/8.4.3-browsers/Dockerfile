@@ -6,6 +6,9 @@ RUN apt-get update
 
 RUN apt-get install -y gdal-bin libmagickwand-dev
 
+RUN pecl install imagick \
+    && docker-php-ext-enable imagick
+
 ADD php.ini /etc/php.d/
 
 RUN mkdir /app \
